@@ -80,16 +80,6 @@ export default function Home() {
       <Wrapper>
         <CardWrapper>
           <ImageCard item={item} />
-          <ImageCard item={item} />
-          <ImageCard item={item} />
-          <ImageCard item={item} />
-          <ImageCard item={item} />
-          <ImageCard item={item} />
-          <ImageCard item={item} />
-          <ImageCard item={item} />
-          <ImageCard item={item} />
-          <ImageCard item={item} />
-          <ImageCard item={item} />
         </CardWrapper>
       </Wrapper>
     </Container>

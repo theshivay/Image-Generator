@@ -64,6 +64,8 @@ export default function ImageCard({item}) {
   return (
     <Card>
       <LazyLoadImage
+        style={{ borderRadius: "12px" }}
+        alt={item?.prompt}
         width='100%'
         src={item?.photo} />
       <HoverOverlay>

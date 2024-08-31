@@ -38,7 +38,7 @@ export default function Navbar() {
                                 FontSize: "18px",
                             }} 
                         />
-                    } 
+                    }
                     type="secondary"
                     onClick={()=>navigate('/')}
                 />)    
