@@ -52,7 +52,7 @@ const Wrapper = styled.div`
 const CardWrapper = styled.div`
   display: grid;
   gap: 20px;
-  @media(max-width: 1200px){
+  @media(min-width: 1200px){
     grid-template-columns: repeat(4,1fr);
   }
   @media (min-width: 640px) and (max-width: 1199px){
@@ -64,6 +64,12 @@ const CardWrapper = styled.div`
 `;
 
 export default function Home() {
+  const item = {
+    photo:"https://www.shutterstock.com/image-photo/micro-peacock-feather-hd-imagebest-260nw-1127238599.jpg",
+    author:"Shivay",
+    prompt:"Hey Prompt! "
+  }
+
   return (
     <Container>
       <Headline>
@@ -73,7 +79,17 @@ export default function Home() {
       <SearchBar/>
       <Wrapper>
         <CardWrapper>
-          <ImageCard/>
+          <ImageCard item={item} />
+          <ImageCard item={item} />
+          <ImageCard item={item} />
+          <ImageCard item={item} />
+          <ImageCard item={item} />
+          <ImageCard item={item} />
+          <ImageCard item={item} />
+          <ImageCard item={item} />
+          <ImageCard item={item} />
+          <ImageCard item={item} />
+          <ImageCard item={item} />
         </CardWrapper>
       </Wrapper>
     </Container>
