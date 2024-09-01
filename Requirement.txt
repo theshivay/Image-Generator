@@ -1,3 +1,7 @@
 All Frontent Librearies
 
 npm install @emotion/react @emotion/styled @mui/icons-material @mui/lab @mui/material axios file-saver react-lazy-load-image-component react-router-dom styled-components 
+
+All Backend Libraries
+
+npm install cloudinary cors dotenv express mongoose nodemon openai
