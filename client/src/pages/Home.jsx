@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useState } from 'react';
 import SearchBar from '../components/SearchBar';
 import ImageCard from '../components/ImageCard';
+import { GetPosts } from '../api/index.js'
+import { CircularProgress } from '@mui/material';
 
 const Container = styled.div`
   height:100%;
@@ -64,11 +67,51 @@ const CardWrapper = styled.div`
 `;
 
 export default function Home() {
-  const item = {
-    photo:"https://www.shutterstock.com/image-photo/micro-peacock-feather-hd-imagebest-260nw-1127238599.jpg",
-    author:"Shivay",
-    prompt:"Hey Prompt! "
-  }
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState([]);
+
+  const getPosts = async () => {
+    setLoading(true);
+    await GetPosts()
+      .then((res) => {
+        setLoading(false);
+        setPosts(res?.data?.data);
+        setFilteredPosts(res?.data?.data);
+      })
+      .catch((error) => {
+        setError(error?.response?.data?.message);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    getPosts()
+  }, []);
+
+  //Search
+  useEffect(() => {
+    if (!search) {
+      setFilteredPosts(posts);
+    }
+
+    const SearchFilteredPosts = posts.filter((post) => {
+      const promptMatch = post?.prompt
+        ?.toLowerCase()
+        .includes(search.toString().toLowerCase());
+      const authorMatch = post?.name
+        ?.toLowerCase()
+        .includes(search.toString().toLowerCase());
+
+      return promptMatch || authorMatch;
+    });
+
+    if (search) {
+      setFilteredPosts(SearchFilteredPosts);
+    }
+  }, [posts, search]);
 
   return (
     <Container>
@@ -76,11 +119,27 @@ export default function Home() {
         Explore popular posts in the Community!
         <Span>⦿ Generated with AI ⦿</Span>
       </Headline>
-      <SearchBar/>
+      <SearchBar search={search} setSearch={setSearch} />
       <Wrapper>
-        <CardWrapper>
-          <ImageCard item={item} />
-        </CardWrapper>
+        {error && <div style={{ color: "red" }}>{error}</div>}
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <CardWrapper>
+            {filteredPosts.length === 0 ? (
+              <>No Posts Found</>
+            ) : (
+              <>
+                {filteredPosts
+                  .slice()
+                  .reverse()
+                  .map((item, index) => (
+                    <ImageCard key={index} item={item} />
+                  ))}
+              </>
+            )}
+          </CardWrapper>
+        )}
       </Wrapper>
     </Container>
   )
