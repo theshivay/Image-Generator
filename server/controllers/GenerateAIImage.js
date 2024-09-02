@@ -1,6 +1,8 @@
 import * as dotenv from "dotenv";
 import { createError } from "../error.js";
-import { OpenAI } from 'openai';
+// import { OpenAI } from 'openai';
+import pkg from 'openai';
+const { OpenAI } = pkg;
 
 dotenv.config();
 
