@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import { createError } from "../error.js";
-import OpenAI from 'openai';
+import {OpenAI} from 'openai';
 
 dotenv.config();
 
