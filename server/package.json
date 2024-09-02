@@ -1,21 +1,21 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "nodemon index.js"
   },
-  "author": "Shivay",
+  "author": "GFG",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "cloudinary": "^2.4.0",
+    "cloudinary": "^2.0.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "mongoose": "^8.6.0",
-    "nodemon": "^3.1.4",
-    "openai": "^4.57.0"
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.1",
+    "nodemon": "^3.0.3",
+    "openai": "^3.1.0"
   }
 }
