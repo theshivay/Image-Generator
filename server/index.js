@@ -26,7 +26,7 @@ app.use((err,req,res,next)=>{
 
 //call routes
 app.use("/api/post", PostRouter)
-app.use("./api/generateimage", GenerateImageRouter);
+app.use("/api/generateImage", GenerateImageRouter);
 
 
 // Default get

@@ -26,6 +26,8 @@ export const getAllPosts = async (req,res,next) =>{
 //Create Post Router
 export const createPost = async (req,res,next) =>{
     try {
+        console.log('Request body:', req.body);
+        console.log('Request file:', req.file);
         const {name, prompt, photo} = req.body;
         const photoUrl = await cloudinary.uploader.upload(photo);
         const newPost  = await Post.create({

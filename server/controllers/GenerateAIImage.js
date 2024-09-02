@@ -1,35 +1,38 @@
 import * as dotenv from "dotenv";
-import {createError} from "../error.js";
-// import { Configuration, OpenAIApi } from "openai";
-import { OpenAIApi } from "openai";
-import { response } from "express";
+import { createError } from "../error.js";
+import OpenAI from 'openai';
 
 dotenv.config();
 
-
 // Setup for OpenAI Key
-// const configuration = new Configuration({
-//     apiKey : process.env.OPENAI_API_KEY,
-// });
-// const openai = new OpenAIApi(configuration);
-const openai = new OpenAIApi(process.env.OPENAI_API_KEY);
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
 
-//Controller to generate image
-export const generateImage = async (req,res,next) =>{
+// Controller to generate image
+export const generateImage = async (req, res, next) => {
     try {
-        const {prompt} = req.body;
+        const { prompt } = req.body;
+        
+        const response = await openai.images.generate({
+            model: "dall-e-2",  // or "dall-e-3" if you have access
+            prompt: prompt,
+            n: 1,
+            size: "1024x1024",
+            response_format: "b64_json",
+        });
 
-        const response = await openai.createImage({
-            prompt,
-            n:1,
-            size:"1024x1024",
-            response_formate: "b64json",
-        })
-
-        const generateImage = response.data.data[0].b64_json;
-        return res.status(200).json({photo:generateImage})
+        const generatedImage = response.data[0].b64_json;
+        return res.status(200).json({ photo: generatedImage });
 
     } catch (error) {
-        next(createError(error.status, error?.response?.data?.error?.message || error?.message));
+        console.error('Error generating image:', error);
+        
+        if (error.error?.code === 'billing_hard_limit_reached') {
+            return res.status(503).json({
+                error: "Service temporarily unavailable due to usage limits. Please try again later."
+            });
+        }
+        next(createError(error.status || 500, error?.response?.data?.error?.message || error?.message));
     }
-}
+};
