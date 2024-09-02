@@ -33,6 +33,7 @@ export const generateImage = async (req, res, next) => {
                 error: "Service temporarily unavailable due to usage limits. Please try again later."
             });
         }
+        
         next(createError(error.status || 500, error?.response?.data?.error?.message || error?.message));
     }
 };
