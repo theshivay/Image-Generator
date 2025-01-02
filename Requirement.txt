@@ -5,3 +5,4 @@ npm install @emotion/react @emotion/styled @mui/icons-material @mui/lab @mui/mat
 All Backend Libraries
 
 npm install cloudinary cors dotenv express mongoose nodemon openai
+

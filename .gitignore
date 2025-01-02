@@ -8,6 +8,7 @@
 /server/.env
 /.pnp
 .pnp.js
+requirement.txt
 
 # testing
 /coverage
@@ -26,3 +27,4 @@ requirement.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
